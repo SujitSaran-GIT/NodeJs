@@ -1,3 +1,205 @@
 🚀 My Node.js Journey
 ----------------------------
 Welcome to my Node.js Journey! This repository documents everything I’ve learned and built while completing my Node.js course. From basic concepts to full-stack projects, this repo showcases my growth as a backend developer.
+
+What is Node js?
+------------------
+Node js is a free and open source, cross-platform javacsript runtime environment, that lets developers write command line tools and server side scripts outside of a browser
+
+Open source
+-------------
+Node js has a huge community of collaborators who work consistently on keeping node.js feature rich and upto date
+
+Cross platform
+-----------------
+Node.js code can run on any operating system like windows, macos or linux
+
+Runtime environment
+-----------------------
+Node.js is built on google chrome's v8 engine which allows javascript to run ouside the browser
+
+Why Should we learn Node.js?
+--------------------------------
+Javacsript: Node js is bbuilt on the top of the javascript programming language, ehich means that if you already know javascript, you can easily learn Node.js. This makes it an attractive option for web developers who want to use a familar language on both the frontend and backend
+
+Scalability: Node.js uses an event-driven, non-blocking i/o model which makes it highly scalable. It can handle large volumes of traffic with ease, making it ideal for applications that need to handle a high volume of requests
+
+Performance: Node.js known for its speed and performance. Because it runs on te V8 javacsript engine, it can execute code very quickly, making it a great choice for real-time application
+
+Large Ecosystem: Node.js has a large and active community of developers who contribute to open source packages and mosules that can be easily installed using npm. This makes it easy to find pre-existing solutions to common problems and speeds up development time
+
+Cross-platform: Node.js can run on multiple operating systems including windows, macOs, and linux making it a versatile choice for developers working across different platforms.
+
+Overall, Node.js is a powerful tool that offers many benifits to developers, particularly those working on real-time web applications or projects that require scalability and performance
+
+Module Wrapper In Node.js
+----------------------------
+In Node.js, every module is wrapped inside a function before execution. This function provides a module wrapper that ensures encapsulation and avoids global variable conflicts.
+
+The Module Wrapper Function
+-------------------------------
+Each Node.js module is wrapped in an immediately invoked function expression (IIFE) with the following structure:
+
+(function(exports, require, module, __filename, __dirname) {
+    // Your module code here
+});
+
+
+Parameters of the Module Wrapper Function
+--------------------------------------------
+exports – Shortcut to module.exports, used to export values.
+require – Function to import other modules.
+module – Object representing the current module, allowing modification of module.exports.
+__filename – Absolute path of the current module file.
+__dirname – Absolute path of the directory containing the module.
+
+Why Does Node.js Use a Module Wrapper?
+------------------------------------------
+Encapsulation: Prevents global variable pollution by providing a local scope for each module.
+Access to Module Metadata: Provides __filename, __dirname, and module.exports.
+Ensures Module Independence: Each file can be loaded separately without interfering with others.
+
+
+Path Module in Node.js
+-------------------------
+The Path Module in Node.js provides utilities for working with file and directory paths. It helps in handling and transforming file paths efficiently across different operating systems.
+
+1. Importing the Path Module
+The path module is a built-in module in Node.js, so you don't need to install it.
+
+import path from 'path';  // ES Module
+// const path = require('path'); // CommonJS (CJS)
+
+2. Common Methods in Path Module
+Here are the most useful methods:
+
+1️⃣ path.basename() → Get File Name
+Extracts the last part (file name) from a given path.
+
+const filePath = '/user/local/index.js';
+console.log(path.basename(filePath));  // Output: index.js
+console.log(path.basename(filePath, '.js'));  // Output: index
+2️⃣ path.dirname() → Get Directory Name
+Returns the directory portion of a path.
+
+console.log(path.dirname('/user/local/index.js'));  
+// Output: /user/local
+3️⃣ path.extname() → Get File Extension
+Gets the extension of a file.
+
+console.log(path.extname('/user/local/index.js'));  
+// Output: .js
+4️⃣ path.join() → Join Paths
+Joins multiple path segments, automatically handling / or \ (cross-platform support).
+
+console.log(path.join('/user', 'local', 'index.js'));  
+// Output: /user/local/index.js
+
+console.log(path.join('/user', '//local/', 'index.js'));  
+// Output: /user/local/index.js
+5️⃣ path.resolve() → Get Absolute Path
+Resolves a sequence of paths into an absolute path.
+
+console.log(path.resolve('index.js'));  
+// Output: /absolute/path/to/index.js (depends on your system)
+
+console.log(path.resolve('/user', 'local', 'index.js'));  
+// Output: /user/local/index.js
+6️⃣ path.parse() → Convert Path to Object
+Breaks down a file path into an object with root, dir, base, ext, and name.
+
+const parsedPath = path.parse('/user/local/index.js');
+console.log(parsedPath);
+/*
+Output:
+{
+  root: '/',
+  dir: '/user/local',
+  base: 'index.js',
+  ext: '.js',
+  name: 'index'
+}
+*/
+7️⃣ path.format() → Convert Object to Path
+Reverses path.parse() by reconstructing a path.
+
+
+const formattedPath = path.format({
+  dir: '/user/local',
+  base: 'index.js'
+});
+console.log(formattedPath);  
+// Output: /user/local/index.js
+
+
+3. Using __dirname and __filename in ES Modules
+---------------------------------------------------
+By default, __dirname and __filename are not available in ES Modules. You need to manually create them:
+
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log(__filename);
+console.log(__dirname);
+
+
+Node Js Behind The Scene
+--------------------------
+- V8 Engine -:  Converts Js Code into machine code so that machine can understand. Written In c++
+- Libuv -: Open source library with a strong focus on Asynchronous I/O. Written In c++
+
+Libuv
+------------
+Libuv is a multi-platform support library with a focus on async I?O. It was developed specially for Node.js, Written in c++.
+
+Features
+--------------
+File system Events
+Async DNS Resolution
+Async file system operations
+Full-Featured event loop
+
+other dependencies that nodejs depends on
+---------------------------------------------
+Llhttp -: Designed to not make any syscalls or allocations
+c-ares -: For some Asynchronous DNS requests
+OpenSSL -: Implementations of many cryptographic functions
+Zlib -: For fast compression and decompression
+
+THREAD🔥
+------------
+Each unit capable of executing code is called a thread
+
+                    multiply(2,3)
+
+
+write to a file     PROGRAM PROCESS           greetings()
+
+
+                    Read File
+
+These are all threads
+
+But we know nodejs is a single threaded, which means it can only do one thing at a time
+
+And the solution is something called Event Loop
+
+Event Loops
+---------------
+The event loop will be generated in the thread & the role of this loop is to schedule which operations our thread should be performing at any given point
+
+javascript(someprocess,callback)
+
+if(someprocess == "complete) {
+  callback()
+}
+
+callback
+------------
+Callback is an Asynchronous equivalent for a function
+A callback function is called at the completion of a given task
+Callback helpus in preventing fromm the blocking of the code
+Node makes heavy use of callbacks
